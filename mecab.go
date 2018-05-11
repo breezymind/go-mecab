@@ -13,13 +13,14 @@ import (
 )
 
 /*
-1. libmecab doc
+NOTE: 개발 참고 링크
+1) libmecab doc
 http://bbs.nicklib.com/library/MeCab/libmecab.html
 
-2. mecab-doxygen
+2) mecab-doxygen
 http://taku910.github.io/mecab/doxygen/structmecab__node__t.html#aff3d4ffe36157f2f2e9bc10f744e6782
 
-3. mecab-ko-dic :
+3) mecab-ko-dic :
 https://bitbucket.org/eunjeon/mecab-ko-dic
 https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid=589544265
 */
