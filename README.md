@@ -26,7 +26,6 @@ go get "github.com/breezymind/go-mecab"
 ```
 
 ## Usage
-* GetAttrString 예시
 ```go
 fmt.Printf("Mecab Version: %s\n", mecab.Version())
 // Mecab Version: 0.996/ko-0.9.2
@@ -44,31 +43,32 @@ rawtext := `
     기형도 / 입속의 검은 잎
 `
 
-// [] 명사 추출 예시
+// 1. 명사 추출 예시
 fmt.Println(
     m.Nouns(rawtext),
 )
 // [택시 운전사 창밖 고개 고함 그때 새 들 이곳 벌판 황혼 나 번 적 그 생각 기형 입속 잎]
 
-// [] Parse 품사 필터링 예시
+// 2. Parse 품사 정규식 필터링 예시
 fmt.Println(
-    m.Parse(rawtext, "NN*").GetSurfaceSlice(),
+    // 명사만 뽑아서 Surface 값을 슬라이스로 리턴
+    m.Parse(rawtext, "NN*").GetSurfaceSlice(),    
 )
 // [택시 운전사 창밖 고개 고함 그때 새 들 이곳 벌판 황혼 나 번 적 그 생각 기형 입속 잎]
 
-// [] Morphs 형태소 추출 예시
+// 3. Morphs 형태소 추출 예시
 fmt.Println(
     m.Morphs(rawtext),
 )
 // [택시 운전사 는 어두운 창밖 으로 고개 를 내밀 어 이따금 고함 을 친다 . 그때 마다 새 들 이 날아간다 이곳 은 처음 지나 는 벌판 과 황혼 , 나 는 한 번 도 만난 적 없 는 그 를 생각 한다 기형 / 입속 의 검 은 잎]
 
-// [] Pos [형태소,품사] 추출 예시
+// 4. Pos [형태소,품사] 추출 예시
 fmt.Println(
     m.Pos(rawtext),
 )
 // [[택시 NNG] [운전사 NNG] [는 JX] [어두운 VA+ETM] [창밖 NNG] [으로 JKB] [고개 NNG] [를 JKO] [내밀 VV] [어 EC] [이따금 MAG] [고함 NNG] [을 JKO] [친다 VV+EF] [. SF] [그때 NNG] [마다 JX] [새 NNG] [들 XSN] [이 JKS] [이곳 NP] [은 JX] [처음 MAG] [지나 VV] [는 ETM] [벌판 NNG] [과 JC] [황혼 NNG] [, SC] [나 NP] [는 JX] [한 MM] [번 NNBC] [도 JX] [만난 VV+ETM] [적 NNB] [없 VA] [는 ETM] [그 NP] [를 JKO] [생각 NNG] [한다 XSV+EC] [기형 NNG] [도 JX] [/ SC] [입속 NNG] [의 JKG] [검 VA] [은 ETM] [잎 NNG]]
 
-// [] GetJSONPretty 사용 예시
+// 5. GetJSONPretty 사용 예시
 fmt.Println(
     m.Parse(rawtext, "NN*").GetJSONPretty(),
 )
