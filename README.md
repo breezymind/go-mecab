@@ -16,6 +16,19 @@ brew install mecab-ko
 brew install mecab-ko-dic
 ```
 
+## Reference
+    1) mecab-doxygen
+    
+    http://taku910.github.io/mecab/doxygen/functions.html
+    
+    2) mecab-ko, mecab-ko-dic
+    
+    - mecab-ko
+    https://bitbucket.org/eunjeon/mecab-ko
+    
+    - mecab-ko-dic 품사 태그 설명
+    https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid=589544265
+
 ## Installation
 
 ```bash
