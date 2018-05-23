@@ -10,6 +10,8 @@ import (
 	"regexp"
 	"strings"
 	"unsafe"
+
+	misc "github.com/breezymind/go-misc"
 )
 
 /*
@@ -94,6 +96,7 @@ func (t *Mecab) Destroy() {
 
 // Parse 는 형태소를 분석하여 Nodes 타입으로 리턴하며, args[0] 은 분석할 문장, args[1] 는 원하는 품사만 필터링 할때 포함하여 호출합니다.
 // ex) t.Parse("이 문장을 형태소 분석합니다.", "NN*").GetSurfaceSlice()
+// func (t *Mecab) Parse(args ...string) *Nodes {
 func (t *Mecab) Parse(args ...string) *Nodes {
 	text := C.CString(args[0])
 	defer C.free(unsafe.Pointer(text))
@@ -123,7 +126,11 @@ func (t *Mecab) Parse(args ...string) *Nodes {
 				Etc:     feature[1:],
 			}
 
-			if (srch != nil && srch.MatchString(node.TagID)) || (srch == nil) {
+			// NOTE: 기본적으로 특수문자 제외
+			isSpecTagID, _ := misc.InArray(node.TagID, []string{"SF", "SE", "SSO", "SSC", "SC", "SY"})
+			isSrchTagID := (srch != nil && srch.MatchString(node.TagID))
+
+			if (isSrchTagID || srch == nil) && !isSpecTagID {
 				res.List = append(res.List, node)
 			}
 		}
@@ -148,9 +155,19 @@ func (t *Mecab) Morphs(text string) []string {
 	return t.Parse(text).GetSurfaceSlice()
 }
 
+// Morphs2Str 는 형태소만 추출하여 []string 를 string 형태로 변형하여 리턴합니다.  ex) 택시 운전사 는 어두운 창밖 으로
+func (t *Mecab) Morphs2Str(text string) string {
+	return strings.Join(t.Morphs(text), " ")
+}
+
 // Nouns 는 명사만 추출하여 []string 형태로 리턴합니다. ex) [택시 운전사 창밖 고개 고함]
 func (t *Mecab) Nouns(text string) []string {
 	return t.Parse(text, "NN*").GetSurfaceSlice()
+}
+
+// Nouns2Str 는 명사만 추출하여 []string 를 string 형태로 변형하여 리턴합니다. ex) 택시 운전사 창밖 고개 고함
+func (t *Mecab) Nouns2Str(text string) string {
+	return strings.Join(t.Nouns(text), " ")
 }
 
 // GetJSONPretty 는 Nodes 타입의 List 데이터를 JSON string 으로 보기좋게 리턴합니다.

@@ -63,6 +63,11 @@ fmt.Println(
 )
 // [택시 운전사 창밖 고개 고함 그때 새 들 이곳 벌판 황혼 나 번 적 그 생각 기형 입속 잎]
 
+fmt.Println(
+    m.Nouns2Str(rawtext),
+)
+// 택시 운전사 창밖 고개 고함 그때 새 들 이곳 벌판 황혼 나 번 적 그 생각 기형 입속 잎
+
 // 2. Parse 품사 정규식 필터링 예시
 fmt.Println(
     // 명사만 뽑아서 Surface 값을 슬라이스로 리턴
